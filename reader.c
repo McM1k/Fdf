@@ -6,7 +6,7 @@
 /*   By: gboudrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 19:39:22 by gboudrie          #+#    #+#             */
-/*   Updated: 2016/03/14 22:15:45 by gboudrie         ###   ########.fr       */
+/*   Updated: 2016/03/15 19:16:01 by gboudrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ static *int		separator(char *str)
 		if (str[i])
 			i++;
 	}
-	line = (*int)ft_memalloc(4 * (i = j));
+	line = (*int)ft_memalloc(4 * (i = j) + 4);
 	while (j-- >= 0)
 		line[j + 1] = ptr[j];
 	ft_memdel(&ptr);
 	return (line[0] = i);
 }
 
-void			reader(int const fd, int **tab)
+int				**reader(int const fd, int **tab)
 {
 	char	*str;
 	int		i;

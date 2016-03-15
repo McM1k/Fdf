@@ -6,13 +6,15 @@
 /*   By: gboudrie <gboudrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/24 21:50:40 by gboudrie          #+#    #+#             */
-/*   Updated: 2016/03/14 19:43:10 by gboudrie         ###   ########.fr       */
+/*   Updated: 2016/03/14 19:49:07 by gboudrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 # include <string.h>
+# include <unistd.h>
+# define BUFF_SIZE 32
 
 typedef struct		s_fd
 {
