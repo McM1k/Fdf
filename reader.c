@@ -6,7 +6,7 @@
 /*   By: gboudrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 19:39:22 by gboudrie          #+#    #+#             */
-/*   Updated: 2016/03/17 17:14:27 by gboudrie         ###   ########.fr       */
+/*   Updated: 2016/03/17 17:30:08 by gboudrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int				**reader(int const fd, int **tab)
 	int		gnl;
 
 	i = 0;
-	while ((gnl = get_next_line(fd, *str)) == 1)
+	while ((gnl = get_next_line(fd, &str)) == 1)
 	{
 		tab[i] = separator(str);
 		i++;

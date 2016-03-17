@@ -6,23 +6,43 @@
 #    By: gboudrie <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/15 17:32:02 by gboudrie          #+#    #+#              #
-#    Updated: 2016/03/15 17:47:31 by gboudrie         ###   ########.fr        #
+#    Updated: 2016/03/17 17:31:57 by gboudrie         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 NAME = fdf
 
-MKLIB = libft/Makefile
+MKLIB = make -C libft/
+
+INCLUDES = libft/libft.a
 
 CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
+SOURCES = reader.c main.c
+
+OBJS = $(SOURCES:.c=.o)
+
+MLX = -lmlx -framework OpenGL -framework AppKit
+
 all :			$(NAME)
 
-$(NAME) :		$(MKLIB)
+$(NAME) :
+				$(MKLIB)
+				$(CC) $(FLAGS) -c $(SOURCES)
+				$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(INCLUDES) $(MLX)
 
-clean :			
+norm :
+				norminette $(SOURCES)
 
-fclean :		
+meteo :
+				curl http://wttr.in/Paris
 
-re :			
+clean :
+				-rm -f $(OBJS)
+
+fclean :		clean
+				$(MKLIB) fclean
+				-rm -f $(NAME)
+
+re :			fclean all
