@@ -6,7 +6,7 @@
 /*   By: gboudrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 19:39:22 by gboudrie          #+#    #+#             */
-/*   Updated: 2016/03/17 17:30:08 by gboudrie         ###   ########.fr       */
+/*   Updated: 2016/03/17 19:00:47 by gboudrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ static int		*separator(char *str)
 			i++;
 	}
 	line = (int *)ft_memalloc(4 * (i = j) + 4);
-	while (j-- >= 0)
-		line[j + 1] = ptr[j];
+	while (i-- >= 0)
+		line[i + 1] = ptr[i];
 	ft_memdel((void **)&ptr);
-	line[0] = i;
+	line[0] = j;
 	return (line);
 }
 
@@ -47,18 +47,28 @@ int				**reader(int const fd, int **tab)
 	char	*str;
 	int		i;
 	int		gnl;
+	int		**ptr;
+	int		j;
 
 	i = 0;
+	tab = NULL;
 	while ((gnl = get_next_line(fd, &str)) == 1)
 	{
-		tab[i] = separator(str);
+		ptr = (int **)ft_memalloc(sizeof(int **) * (i + 2));
+		ptr[i + 1] = NULL;
+		j = 0;
+		while (tab[j])
+		{
+			ptr[j] = tab[j];
+			j++;
+		}
+		ft_memdel((void **)&tab);
+		tab = ptr;
+		tab[i] = separator(str);//	<———	/!\ THE FILTHY SEGFAULT ˚∆˙¬¬ /!\
 		i++;
 	}
 	if (gnl == 0)
-	{
-		tab[i] = NULL;
 		return (tab);
-	}
 	else
 		return (NULL);
 }

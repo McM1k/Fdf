@@ -6,60 +6,96 @@
 /*   By: gboudrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 18:54:15 by gboudrie          #+#    #+#             */
-/*   Updated: 2016/03/17 17:21:20 by gboudrie         ###   ########.fr       */
+/*   Updated: 2016/03/17 21:17:27 by gboudrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx.h"
 #include "fdf.h"
+#include <stdlib.h>
 
-int		main(int ac, char **av)
+int		my_key_func(int keycode, void *param)
 {
-	int		i;
-	int		j;
-	int		fd;
-	int		**tab;
+	int		tmp;
 
-	if (ac == 2)
+	tmp = (int)param;
+	if (keycode == 53)
 	{
-		fd = open(av[1], O_RDONLY);
-		tab = reader(fd, tab);
-		j = 0;
-		while (tab[j])
-		{
-			i = 0;
-			while (i++ <= *tab[j])
-			{
-				ft_putnbr(tab[j][i]);
-				if (tab[j][i] < 10)
-					ft_putchar(' ');
-				ft_putchar(' ');
-			}
-			ft_putendl("");
-			j++;
-		}
+		ft_putendl("<ESC>");
+		exit(0);
 	}
+	return (1);
+}
 
-/* 	void	*mlx; */
-/* 	void	*win; */
+int		main(/*int ac, char **av*/)
+{
+/* 	int		i; */
+/* 	int		j; */
+/* 	int		fd; */
+/* 	int		**tab; */
+
+/* 	if (ac == 2) */
+/* 	{ */
+/* 		fd = open(av[1], O_RDONLY); */
+/* 		tab = reader(fd, tab); */
+/* 		j = 0; */
+/* 		while (tab[j]) */
+/* 		{ */
+/* 			i = 0; */
+/* 			while (i <= tab[j][0]) */
+/* 			{ */
+/* 				ft_putnbr(tab[j][i + 1]); */
+/* 				if (tab[j][i + 1] < 10) */
+/* 					ft_putchar(' '); */
+/* 				ft_putchar(' '); */
+/* 				i++; */
+/* 			} */
+/* 			ft_putendl(""); */
+/* 			j++; */
+/* 		} */
+/* 	} */
+
+	void	*mlx;
+	void	*win;
 /* 	int		x; */
 /* 	int		y; */
-	
-/* 	mlx = mlx_init(); */
-/* 	win = mlx_new_window(mlx, 400, 400, "poulet"); */
+/* 	int		a; */
+
+	mlx = mlx_init();
+	win = mlx_new_window(mlx, 400, 400, "poulet");
+	segment(mlx, win, 50, 50, 100, 300);
+
 /* 	x = 50; */
-/* 	while (x < 350) */
-/* 	{ */
-/* 		mlx_pixel_put(mlx, win, x, x, 0x00FF0000); */
-/* 		x++; */
-/* 	} */
 /* 	y = 50; */
-/* 	while (y < 350) */
+/* 	a = 50; */
+/* 	while ((x > 205 || x < 195) && (y > 205 || y < 195)) */
 /* 	{ */
-/* 		mlx_pixel_put(mlx, win, x, y, 0x00FF0000); */
-/* 		y++; */
-/* 		x--; */
+/* 		while (x < 400 - a) */
+/* 		{ */
+/* 			mlx_pixel_put(mlx, win, x, y, 0x00FF0000); */
+/* 			x++; */
+/* 		} */
+/* 		a++; */
+/* 		while (y < 400 - a) */
+/* 		{ */
+/* 			mlx_pixel_put(mlx, win, x, y, 0x00FFFF00); */
+/* 			y++; */
+/* 		} */
+/* 		a++; */
+/* 		while (x > a) */
+/* 		{ */
+/* 			mlx_pixel_put(mlx, win, x, y, 0x0000FF00); */
+/* 			x--; */
+/* 		} */
+/* 		a++; */
+/* 		while (y > a) */
+/* 		{ */
+/* 			mlx_pixel_put(mlx, win, x, y, 0x0000FFFF); */
+/* 			y--; */
+/* 		} */
+/* 		a++; */
 /* 	} */
-/* 	mlx_loop(mlx); */
+	if ((mlx_key_hook(win, my_key_func, 0)) == 0)
+		return (0);
+	mlx_loop(mlx);
 	return (0);
 }
