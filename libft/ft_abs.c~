@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_abs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gboudrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/15 17:47:47 by gboudrie          #+#    #+#             */
-/*   Updated: 2016/03/17 21:09:40 by gboudrie         ###   ########.fr       */
+/*   Created: 2016/03/18 13:24:43 by gboudrie          #+#    #+#             */
+/*   Updated: 2016/03/18 13:37:31 by gboudrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
-# include "libft/libft.h"
-# include <fcntl.h>
-# include "mlx.h"
-int			**reader(int const fd, int **tab);
-void		segment(void *mlx, void *win, int xa, int ya, int xb, int yb);
+#include "libft.h"
 
-#endif
+int		ft_abs(int nb)
+{
+	if (nb == (−2147483648))
+		return (2147483648);
+	if (nb < 0)
+		return (nb * (-1));
+	return (nb);
+}

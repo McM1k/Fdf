@@ -6,7 +6,7 @@
 #    By: gboudrie <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/15 17:32:02 by gboudrie          #+#    #+#              #
-#    Updated: 2016/03/17 19:55:27 by gboudrie         ###   ########.fr        #
+#    Updated: 2016/03/18 13:40:20 by gboudrie         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 NAME = fdf
@@ -19,7 +19,7 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
-SOURCES = reader.c main.c
+SOURCES = reader.c main.c drawer.c
 
 OBJS = $(SOURCES:.c=.o)
 

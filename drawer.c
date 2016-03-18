@@ -6,44 +6,50 @@
 /*   By: gboudrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 17:37:25 by gboudrie          #+#    #+#             */
-/*   Updated: 2016/03/17 21:37:58 by gboudrie         ###   ########.fr       */
+/*   Updated: 2016/03/18 15:54:33 by gboudrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void		ft_swap(void *a, void *b)
+static double		affine(int x, double div, int dir)
 {
-	void	*ptr;
+	int		y;
 
-	ptr = a;
-	a = b;
-	b = ptr;
+	if (dir == 1)
+		y = x * div;
+	else
+		y = x / div;
+	return (y);
 }
 
-void		segment(void *mlx, void *win, int xa, int ya, int xb, int yb)
+void				segment(void *mlx, void *win, int xa, int ya, int xb, int yb)
 {
 	int		i;
-	int		j;
-	int		div;
+	double	div;
 
-	if (xa > xb)
+
+	i = 0;
+	if (xa > xb) //EAST
 	{
 		ft_swap((void *)&xa, (void *)&xb);
-		ft_swap((void *)&ya, (void *)&yb); // EAST
+		ft_swap((void *)&ya, (void *)&yb);
 	}
-	i = xa;
-	j = ya;
-	while (i != xb && j != yb)
+	div = (double)((yb - ya) / (xb - xa));
+	if (div >= -1 && div <= 1)
 	{
-		if (j <= yb) // SOUTH EAST
+		while (xa + i < xb)
 		{
-			
-		}
-		else // NORTH EAST
-		{
-			
+			mlx_pixel_put(mlx, win, xa + i, ya + affine(i, div, 1), 0x00FF0000);
+			i++;
 		}
 	}
-	mlx_pixel_put(mlx, win, i, j, 0x00FF0000);
+	else
+	{
+		while ((ya + i - yb) != 0)
+		{
+			mlx_pixel_put(mlx, win, ya + i, xa + affine(i, div ,0), 0x00FF0000);
+			i++;
+		}
+	}
 }

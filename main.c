@@ -6,7 +6,7 @@
 /*   By: gboudrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 18:54:15 by gboudrie          #+#    #+#             */
-/*   Updated: 2016/03/17 21:17:27 by gboudrie         ###   ########.fr       */
+/*   Updated: 2016/03/18 13:53:22 by gboudrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,15 @@ int		main(/*int ac, char **av*/)
 
 	mlx = mlx_init();
 	win = mlx_new_window(mlx, 400, 400, "poulet");
-	segment(mlx, win, 50, 50, 100, 300);
+	segment(mlx, win, 200, 200, 400, 100);
+	segment(mlx, win, 200, 200, 400, 300);
+	segment(mlx, win, 200, 200, 000, 100);
+	segment(mlx, win, 200, 200, 000, 300);
+	segment(mlx, win, 200, 200, 100, 000);
+	segment(mlx, win, 200, 200, 300, 000);
+	segment(mlx, win, 200, 200, 100, 400);
+	segment(mlx, win, 200, 200, 300, 400);
+
 
 /* 	x = 50; */
 /* 	y = 50; */
