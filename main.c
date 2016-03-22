@@ -6,7 +6,7 @@
 /*   By: gboudrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 18:54:15 by gboudrie          #+#    #+#             */
-/*   Updated: 2016/03/18 13:53:22 by gboudrie         ###   ########.fr       */
+/*   Updated: 2016/03/21 18:34:32 by gboudrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,10 @@ int		main(/*int ac, char **av*/)
 	segment(mlx, win, 200, 200, 300, 000);
 	segment(mlx, win, 200, 200, 100, 400);
 	segment(mlx, win, 200, 200, 300, 400);
-
+	segment(mlx, win, 200, 200, 200, 000);
+	segment(mlx, win, 200, 200, 200, 400);
+	segment(mlx, win, 200, 200, 000, 200);
+	segment(mlx, win, 200, 200, 400, 200);
 
 /* 	x = 50; */
 /* 	y = 50; */

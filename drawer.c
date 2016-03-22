@@ -6,50 +6,42 @@
 /*   By: gboudrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 17:37:25 by gboudrie          #+#    #+#             */
-/*   Updated: 2016/03/18 15:54:33 by gboudrie         ###   ########.fr       */
+/*   Updated: 2016/03/22 17:23:19 by gboudrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static double		affine(int x, double div, int dir)
-{
-	int		y;
-
-	if (dir == 1)
-		y = x * div;
-	else
-		y = x / div;
-	return (y);
-}
-
 void				segment(void *mlx, void *win, int xa, int ya, int xb, int yb)
 {
-	int		i;
+	int		x;
+	int		y;
 	double	div;
 
 
-	i = 0;
-	if (xa > xb) //EAST
-	{
-		ft_swap((void *)&xa, (void *)&xb);
-		ft_swap((void *)&ya, (void *)&yb);
-	}
-	div = (double)((yb - ya) / (xb - xa));
+	x = 0;
+	y = 0;
+	(xa > xb ? ft_swap(&ya, &yb) : (void)0);
+	(xa > xb ? ft_swap(&xa, &xb) : (void)0);
+	div = (double)(yb - ya) / (double)(xb - xa);
 	if (div >= -1 && div <= 1)
 	{
-		while (xa + i < xb)
+		while (xa + x <= xb)
 		{
-			mlx_pixel_put(mlx, win, xa + i, ya + affine(i, div, 1), 0x00FF0000);
-			i++;
+			mlx_pixel_put(mlx, win, xa + x, ya + y, 0x00FF0000);
+			x++;
+			y = x * div;
 		}
 	}
 	else
 	{
-		while ((ya + i - yb) != 0)
+		while (ya + y != yb)
 		{
-			mlx_pixel_put(mlx, win, ya + i, xa + affine(i, div ,0), 0x00FF0000);
-			i++;
+			mlx_pixel_put(mlx, win, xa + x , ya + y, 0x00FF0000);
+			y = (ya < yb ? y + 1 : y - 1);
+			x = y / div;
+			if (ya + y == yb)
+				mlx_pixel_put(mlx, win, xa + x , ya + y, 0x00FF0000);
 		}
 	}
 }
