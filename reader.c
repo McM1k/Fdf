@@ -6,40 +6,32 @@
 /*   By: gboudrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 19:39:22 by gboudrie          #+#    #+#             */
-/*   Updated: 2016/03/17 19:00:47 by gboudrie         ###   ########.fr       */
+/*   Updated: 2016/04/01 21:28:01 by gboudrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int		*separator(char *str)
+static int		*separator(char *str, int **tab)
 {
 	int		i;
 	int		j;
-	int		*line;
-	int		*ptr;
+	char	**tmp;
 
+	tmp = ft_strsplit(str, ' ');
 	i = 0;
+	while (tmp[i])
+		i++;
+	*tab = ft_memalloc((i + 1) * 4);
 	j = 0;
-	ptr = (int *)ft_memalloc(2 * ft_strlen(str));
-	while (str[i])
+	while (j <= i)
 	{
-		if (ft_isdigit(str[i]) == 1)
-		{
-			ptr[j] = ft_atoi(&str[i]);
-			j++;
-			while (ft_isdigit(str[i]) == 1)
-				i++;
-		}
-		if (str[i])
-			i++;
+		*tab[j+1] = ft_atoi(tmp[j]); //  <———	/!\ IT IZ HERE ˚∆˙¬¬ /!\
+		j++;
 	}
-	line = (int *)ft_memalloc(4 * (i = j) + 4);
-	while (i-- >= 0)
-		line[i + 1] = ptr[i];
-	ft_memdel((void **)&ptr);
-	line[0] = j;
-	return (line);
+	ft_putendl("mdr4");
+	*tab[0] = i;
+	return (tab);
 }
 
 int				**reader(int const fd, int **tab)
@@ -54,17 +46,17 @@ int				**reader(int const fd, int **tab)
 	tab = NULL;
 	while ((gnl = get_next_line(fd, &str)) == 1)
 	{
-		ptr = (int **)ft_memalloc(sizeof(int **) * (i + 2));
+		ptr = (int **)ft_memalloc(sizeof(int *) * (i + 2));
 		ptr[i + 1] = NULL;
 		j = 0;
-		while (tab[j])
+		while (tab && tab[j])
 		{
 			ptr[j] = tab[j];
 			j++;
 		}
-		ft_memdel((void **)&tab);
+		ft_tabdel((void ***)&tab);
 		tab = ptr;
-		tab[i] = separator(str);//	<———	/!\ THE FILTHY SEGFAULT ˚∆˙¬¬ /!\
+		tab[i] = separator(str, tab[i]);//	<———	/!\ THE FILTHY SEGFAULT ˚∆˙¬¬ /!\
 		i++;
 	}
 	if (gnl == 0)
