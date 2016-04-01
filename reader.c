@@ -6,13 +6,13 @@
 /*   By: gboudrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 19:39:22 by gboudrie          #+#    #+#             */
-/*   Updated: 2016/04/01 21:28:01 by gboudrie         ###   ########.fr       */
+/*   Updated: 2016/04/01 22:23:13 by gboudrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int		*separator(char *str, int **tab)
+static int		*separator(char *str, int *tab)
 {
 	int		i;
 	int		j;
@@ -22,15 +22,18 @@ static int		*separator(char *str, int **tab)
 	i = 0;
 	while (tmp[i])
 		i++;
-	*tab = ft_memalloc((i + 1) * 4);
+	tab = ft_memalloc((i + 1) * 4);
 	j = 0;
-	while (j <= i)
+	while (j < i)
 	{
-		*tab[j+1] = ft_atoi(tmp[j]); //  <———	/!\ IT IZ HERE ˚∆˙¬¬ /!\
+		tab[j + 1] = ft_atoi(tmp[j]);
+		ft_putnbr(j);
 		j++;
 	}
-	ft_putendl("mdr4");
-	*tab[0] = i;
+	tab[0] = i;
+	ft_putendl("soi1");
+	ft_tabdel((void ***)&tmp);
+	ft_putendl("soi2");
 	return (tab);
 }
 
@@ -54,9 +57,11 @@ int				**reader(int const fd, int **tab)
 			ptr[j] = tab[j];
 			j++;
 		}
+		ft_putendl("lel1");
 		ft_tabdel((void ***)&tab);
+		ft_putendl("lel2");
 		tab = ptr;
-		tab[i] = separator(str, tab[i]);//	<———	/!\ THE FILTHY SEGFAULT ˚∆˙¬¬ /!\
+		tab[i] = separator(str, tab[i]);
 		i++;
 	}
 	if (gnl == 0)
