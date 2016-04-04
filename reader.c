@@ -6,7 +6,7 @@
 /*   By: gboudrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 19:39:22 by gboudrie          #+#    #+#             */
-/*   Updated: 2016/04/01 22:23:13 by gboudrie         ###   ########.fr       */
+/*   Updated: 2016/04/04 17:36:28 by gboudrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int				**reader(int const fd, int **tab)
 			j++;
 		}
 		ft_putendl("lel1");
-		ft_tabdel((void ***)&tab);
+		ft_memdel((void **)&tab);
 		ft_putendl("lel2");
 		tab = ptr;
 		tab[i] = separator(str, tab[i]);

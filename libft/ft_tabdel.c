@@ -6,7 +6,7 @@
 /*   By: gboudrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/31 22:17:52 by gboudrie          #+#    #+#             */
-/*   Updated: 2016/04/01 22:34:15 by gboudrie         ###   ########.fr       */
+/*   Updated: 2016/04/04 17:15:08 by gboudrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,12 @@ void	ft_tabdel(void ***tab)
 	void	**tb;
 
 	i = 0;
-	if (tab)
+	if (*tab)
 	{
 		tb = *tab;
 		while (tb[i])
 		{
-			if (tb[i])//WHY
-				ft_memdel(&tb[i]);
+			ft_memdel(&tb[i]);
 			i++;
 		}
 		if (tb)
