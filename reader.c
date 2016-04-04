@@ -6,7 +6,7 @@
 /*   By: gboudrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 19:39:22 by gboudrie          #+#    #+#             */
-/*   Updated: 2016/04/04 17:36:28 by gboudrie         ###   ########.fr       */
+/*   Updated: 2016/04/04 18:50:45 by gboudrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,10 @@ static int		*separator(char *str, int *tab)
 	while (j < i)
 	{
 		tab[j + 1] = ft_atoi(tmp[j]);
-		ft_putnbr(j);
 		j++;
 	}
 	tab[0] = i;
-	ft_putendl("soi1");
 	ft_tabdel((void ***)&tmp);
-	ft_putendl("soi2");
 	return (tab);
 }
 
@@ -57,9 +54,7 @@ int				**reader(int const fd, int **tab)
 			ptr[j] = tab[j];
 			j++;
 		}
-		ft_putendl("lel1");
 		ft_memdel((void **)&tab);
-		ft_putendl("lel2");
 		tab = ptr;
 		tab[i] = separator(str, tab[i]);
 		i++;
