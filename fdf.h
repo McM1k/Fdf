@@ -6,7 +6,7 @@
 /*   By: gboudrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 17:47:47 by gboudrie          #+#    #+#             */
-/*   Updated: 2016/04/04 21:50:17 by gboudrie         ###   ########.fr       */
+/*   Updated: 2016/04/08 18:25:20 by gboudrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,19 @@
 # include "libft/libft.h"
 # include <fcntl.h>
 # include "mlx.h"
+# define SIZE_X 1920
+# define SIZE_Y 1080
 
 typedef struct	s_env
 {
 	void		*mlx;
 	void		*win;
-	char		**img;
+	void		*ig;
+	char		*img;
 	int			**tab;
+	int			bit;
+	int			siz;
+	int			end;
 }				t_env;
 
 typedef struct	s_dot
@@ -32,6 +38,8 @@ typedef struct	s_dot
 }				t_dot;
 
 int				**reader(int const fd, int **tab);
-void			segment(void *mlx, void *win, int xa, int ya, int xb, int yb);
+void			segment(t_env env, t_dot a, t_dot b);
+void			drawer(t_env env);
+t_dot			convert(int x, int y, int z, t_dot dot);
 
 #endif
