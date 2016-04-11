@@ -6,7 +6,7 @@
 /*   By: gboudrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 18:54:15 by gboudrie          #+#    #+#             */
-/*   Updated: 2016/04/08 18:33:19 by gboudrie         ###   ########.fr       */
+/*   Updated: 2016/04/11 18:22:49 by gboudrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,13 @@ int		main(int ac, char **av)
 		if ((env.mlx = mlx_init()) == NULL ||
 			(env.win = mlx_new_window(env.mlx, SIZE_X, SIZE_Y, "FdF")) == NULL
 			|| (env.ig = mlx_new_image(env.mlx, SIZE_X, SIZE_Y)) == NULL ||
-			(env.tab = reader(fd, (env.tab = NULL))))
+			(env.tab = reader(fd, (env.tab = NULL))) == NULL)
 			return (0);
 		close(fd);
 		env.img = mlx_get_data_addr(env.ig, &(env.bit), &(env.siz), &(env.end));
 		drawer(env);
 		mlx_put_image_to_window(env.mlx, env.win, env.ig, 0, 0);
 	}
-
 	if ((mlx_key_hook(env.win, my_key_func, 0)) == 0)
 		return (0);
 	mlx_loop(env.mlx);
