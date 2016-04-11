@@ -6,7 +6,7 @@
 /*   By: gboudrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 19:39:22 by gboudrie          #+#    #+#             */
-/*   Updated: 2016/04/04 18:50:45 by gboudrie         ###   ########.fr       */
+/*   Updated: 2016/04/11 17:21:54 by gboudrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,5 @@ int				**reader(int const fd, int **tab)
 		tab[i] = separator(str, tab[i]);
 		i++;
 	}
-	if (gnl == 0)
-		return (tab);
-	else
-		return (NULL);
+	return (gnl == 0 ? tab : NULL);
 }
