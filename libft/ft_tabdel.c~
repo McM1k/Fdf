@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_tabdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gboudrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/30 16:37:46 by gboudrie          #+#    #+#             */
-/*   Updated: 2016/04/25 19:01:17 by gboudrie         ###   ########.fr       */
+/*   Created: 2016/03/31 22:17:52 by gboudrie          #+#    #+#             */
+/*   Updated: 2016/04/01 22:34:15 by gboudrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include "libft.h"
-# include <unistd.h>
-# define BUFF_SIZE 65535
+#include "libft.h"
 
-int				get_next_line(int const fd, char **line);
-
-typedef struct	s_fd
+void	ft_tabdel(void ***tab)
 {
-	int			fd;
-	char		*str;
-	struct s_fd	*next;
-}				t_fd;
+	int		i;
+	void	**tb;
 
-#endif
+	i = 0;
+	if (tab)
+	{
+		tb = *tab;
+		while (tb[i])
+		{
+			if (tb[i])//WHY
+				ft_memdel(&tb[i]);
+			i++;
+		}
+		if (tb)
+			ft_memdel(tb);
+		*tab = NULL;
+	}
+}
