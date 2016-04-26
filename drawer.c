@@ -6,7 +6,7 @@
 /*   By: gboudrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 17:37:25 by gboudrie          #+#    #+#             */
-/*   Updated: 2016/04/25 19:30:16 by gboudrie         ###   ########.fr       */
+/*   Updated: 2016/04/26 20:59:12 by gboudrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ t_dot				convert(int x, int y, int z, t_dot dot)
 	double	decal_y;
 	double	height;
 
-	wide_x = 8 *15;
-	wide_y = 5 *15;
-	decal_x = 0.4 *15;
-	decal_y = 0.3 *15;
-	height = 0.6 *15;
+	wide_x = 4 ;
+	wide_y = 3 ;
+	decal_x = 0.4 ;
+	decal_y = 0.3 ;
+	height = 0.3 ;
 	dot.x = (x * wide_x - height * z) + SIZE_X / 20 - decal_x * y;
 	dot.y = (y * wide_y - (height / 2) * z) + SIZE_Y / 15 - decal_y * x;
-	dot.color = (z > 0 ? 0x0000FF00 : 0x00FFFFFF);
+	dot.color = (z > 0 ? 0x0000FF00 : 0xD0888888);
 	return (dot);
 }
 
@@ -69,26 +69,26 @@ void				drawer(t_env env)
 	}
 }
 
-static int			color_add(t_dot a, t_dot b)
+static int			color(t_dot a, t_dot b, t_dot tmp)
 {
-	int				diff;
+	double			diff;
 	unsigned char	*ptra;
 	unsigned char	*ptrb;
-	unsigned char	tab[4];
+	unsigned char	*ptr;
 	int				res;
 
-	if (a.color == b.color)
-		return (0);
-	diff = (b.x - a.x > b.y - a.y ? b.x - a.x : b.y - a.y);
-	if (diff == 0)
-		return (0);
-	ptra = (unsigned char *)&a.color;
-	ptrb = (unsigned char *)&b.color;
-	tab[0] = (ptrb[0] - ptra[0]) / diff;
-	tab[1] = (ptrb[1] - ptra[1]) / diff;
-	tab[2] = (ptrb[2] - ptra[2]) / diff;
-	tab[3] = (ptrb[3] - ptra[3]) / diff;
-	ft_memcpy(&res, tab, 4);
+	diff = (b.x - a.x > b.y - a.y ?
+			(double)(b.x - a.x) / (double)(b.x - a.x + tmp.x) + 1 :
+			(double)(b.y - a.y) / (double)(b.y - a.y + tmp.y) + 1);
+	if (a.color == b.color || diff == 0)
+		return (a.color);
+	ptr = (unsigned char *)&res;
+	ptra = (unsigned char *)&b.color;
+	ptrb = (unsigned char *)&a.color;
+	ptr[0] = (ptrb[0] - ptra[0]) * diff;
+	ptr[1] = (ptrb[1] - ptra[1]) * diff;
+	ptr[2] = (ptrb[2] - ptra[2]) * diff;
+	ptr[3] = (ptrb[3] - ptra[3]) * diff;
 	return (res);
 }
 
@@ -96,32 +96,28 @@ void				segment(t_env env, t_dot a, t_dot b)
 {
 	t_dot	tmp;
 	double	div;
-	int		col;
 
 	tmp.x = 0;
 	tmp.y = 0;
-	tmp.color = a.color;
+	(a.x > b.x ? ft_swap(&a.color, &b.color) : (void)0);
 	(a.x > b.x ? ft_swap(&a.y, &b.y) : (void)0);
 	(a.x > b.x ? ft_swap(&a.x, &b.x) : (void)0);
-	col = color_add(a, b);
 	div = (double)(b.y - a.y) / (double)(b.x - a.x);
 	if (div >= -1 && div <= 1)
 		while (a.x + tmp.x <= b.x)
 		{
-			img_addr(env, a.x + tmp.x, a.y + tmp.y, tmp.color);
-			tmp.color += col;
+			img_addr(env, a.x + tmp.x, a.y + tmp.y, color(a, b, tmp));
 			tmp.x++;
 			tmp.y =  tmp.x * div;
 		}
 	else
 		while (a.y + tmp.y != b.y)
 		{
-			img_addr(env, a.x + tmp.x, a.y + tmp.y, tmp.color);
-			tmp.color += col;
+			img_addr(env, a.x + tmp.x, a.y + tmp.y, color(a, b, tmp));
 			tmp.y = (a.y < b.y ? tmp.y + 1 : tmp.y - 1);
 			tmp.x = tmp.y / div;
 			if (a.y + tmp.y == b.y)
-				img_addr(env, a.x + tmp.x, a.y + tmp.y, tmp.color);
+				img_addr(env, a.x + tmp.x, a.y + tmp.y, color(a, b, tmp));
 		}
 }
 

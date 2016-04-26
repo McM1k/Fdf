@@ -6,7 +6,7 @@
 /*   By: gboudrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 17:47:47 by gboudrie          #+#    #+#             */
-/*   Updated: 2016/04/11 19:30:09 by gboudrie         ###   ########.fr       */
+/*   Updated: 2016/04/26 16:56:56 by gboudrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 # include "libft/libft.h"
 # include <fcntl.h>
 # include "mlx.h"
-# define SIZE_X 2550
-# define SIZE_Y 1400
+# define SIZE_X 1920
+# define SIZE_Y 1080
 
 typedef struct	s_env
 {
