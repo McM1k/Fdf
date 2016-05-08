@@ -6,7 +6,7 @@
 #    By: gboudrie <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/15 17:32:02 by gboudrie          #+#    #+#              #
-#    Updated: 2016/03/18 13:40:20 by gboudrie         ###   ########.fr        #
+#    Updated: 2016/04/13 20:28:31 by gboudrie         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 NAME = fdf
@@ -29,6 +29,11 @@ all :			$(NAME)
 
 $(NAME) :
 				$(MKLIB)
+				$(CC) $(FLAGS) -c $(SOURCES)
+				$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(INCLUDES) $(MLX)
+
+
+fonly :
 				$(CC) $(FLAGS) -c $(SOURCES)
 				$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(INCLUDES) $(MLX)
 

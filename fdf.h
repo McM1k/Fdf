@@ -6,7 +6,7 @@
 /*   By: gboudrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 17:47:47 by gboudrie          #+#    #+#             */
-/*   Updated: 2016/05/04 23:55:23 by gboudrie         ###   ########.fr       */
+/*   Updated: 2016/05/08 18:35:55 by gboudrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,16 @@ typedef struct	s_env
 	void		*ig;
 	char		*img;
 	int			**tab;
+	double		**mat;
 	int			siz;
 	int			bit;
 	int			end;
 	int			x_decal;
 	int			y_decal;
 	double		zoom;
-	double		x_rot;
-	double		y_rot;
-	double		z_rot;
+	int			x_rot;
+	int			y_rot;
+	int			z_rot;
 }				t_env;
 
 typedef struct	s_dot

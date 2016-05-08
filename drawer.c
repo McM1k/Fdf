@@ -6,7 +6,7 @@
 /*   By: gboudrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 17:37:25 by gboudrie          #+#    #+#             */
-/*   Updated: 2016/05/04 23:44:54 by gboudrie         ###   ########.fr       */
+/*   Updated: 2016/05/08 18:37:42 by gboudrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,16 @@ t_dot				convert(int x, int y, int z, t_env env)
 	t_dot	dot;
 	int		wide_x;//
 	int		wide_y;//
-	double	decal_x;//
-	double	decal_y;//
 	double	height;//
 
-	wide_x = 4 *20;//
-	wide_y = 3 *20;//
-	decal_x = 0.4 *20;//
-	decal_y = 0.3 *20;//
-	height = 0.1 *20;//
-	dot.x = ((x * wide_x - height * z) + SIZE_X / 20 - decal_x * y) * env.zoom;
-	dot.y = ((y * wide_y - (height / 2) * z) + SIZE_Y / 10 - decal_y * x) * env.zoom;
+	wide_x = 1;//
+	wide_y = 1;//
+	height = 0.1;//
+	dot.x = ((x * wide_x - height * z) + SIZE_X / 20) * env.zoom;
+	dot.y = ((y * wide_y - (height / 2) * z) + SIZE_Y / 10) * env.zoom;
 	dot.x += env.x_decal;
 	dot.y += env.y_decal;
-	dot.color = (z > 0 ? 0x0000FF00 : 0x00FF00FF);
+	dot.color = (z > 0 ? 0x0000FF00 : 0x003070FF);
 	return (dot);
 }
 
@@ -131,6 +127,9 @@ void				segment(t_env env, t_dot a, t_dot b)
 	t_dot	tmp;
 	double	div;
 
+	if ((a.x > SIZE_X && b.x > SIZE_X) || (a.x < 0 && b.x < 0) ||
+		(a.y > SIZE_Y && b.y > SIZE_Y) || (a.y < 0 && b.y < 0))
+		return ;
 	tmp.x = 0;
 	tmp.y = 0;
 	(a.x > b.x ? ft_swap(&a.color, &b.color) : (void)0);
