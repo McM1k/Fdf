@@ -6,7 +6,7 @@
 /*   By: gboudrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 17:37:25 by gboudrie          #+#    #+#             */
-/*   Updated: 2016/05/08 18:37:42 by gboudrie         ###   ########.fr       */
+/*   Updated: 2016/05/18 19:23:46 by gboudrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,20 @@
 t_dot				convert(int x, int y, int z, t_env env)
 {
 	t_dot	dot;
-	int		wide_x;//
-	int		wide_y;//
-	double	height;//
+	double	tmp_z;
 
-	wide_x = 1;//
-	wide_y = 1;//
-	height = 0.1;//
-	dot.x = ((x * wide_x - height * z) + SIZE_X / 20) * env.zoom;
-	dot.y = ((y * wide_y - (height / 2) * z) + SIZE_Y / 10) * env.zoom;
+	rotate(&env);
+	x = x * env.zoom;
+	y = y * env.zoom;
+	z = z * env.zoom * env.height;
+	dot.x = (double)(env.mat[0][0] * x + env.mat[0][1] * y + env.mat[0][2] * z);
+	dot.y = (double)(env.mat[1][0] * x + env.mat[1][1] * y + env.mat[1][2] * z);
+	tmp_z = (double)(env.mat[2][0] * x + env.mat[2][1] * y + env.mat[2][2] * z);
+	dot.x = dot.x - (double)(0.8 * tmp_z) + SIZE_X / 20;
+	dot.y = dot.y - (double)((0.8 / 2) * tmp_z) + SIZE_Y / 10;
 	dot.x += env.x_decal;
 	dot.y += env.y_decal;
-	dot.color = (z > 0 ? 0x0000FF00 : 0x003070FF);
+	dot.color = (z > 0 ? 0x0000FF00 : 0x00B0D0);
 	return (dot);
 }
 
@@ -76,50 +78,23 @@ static int			color(t_dot a, t_dot b, t_dot tmp)
 	unsigned char	*ptr;
 	int				res;
 
-	diff = (b.x - a.x > b.y - a.y ?
+	if (a.color == b.color)
+		return (b.color);
+	diff = (ft_abs(b.x - a.x) > ft_abs(b.y - a.y) ?
 			(double)(tmp.x) / (double)(b.x - a.x) :
 			(double)(tmp.y) / (double)(b.y - a.y));
-	if (a.color == b.color || diff == 0)
-		return (b.color);
 	ptr = (unsigned char *)&res;
-	pa = (unsigned char *)&b.color;
-	pb = (unsigned char *)&a.color;
-	ptr[0] = (pa[0] < pb[0] ? (pb[0] - pa[0]) * diff : (pa[0] - pb[0]) * diff);
-	ptr[1] = (pa[3] < pb[1] ? (pb[1] - pa[1]) * diff : (pa[1] - pb[1]) * diff);
-	ptr[2] = (pa[2] < pb[2] ? (pb[2] - pa[2]) * diff : (pa[2] - pb[2]) * diff);
-	ptr[3] = (pa[1] < pb[3] ? (pb[3] - pa[3]) * diff : (pa[3] - pb[3]) * diff);
-
-	//ptr[0] = ((pb[0] - pa[0]) * diff) + (pa[0] < pb[0] ? pb[0] : pa[0]);
-	//ptr[1] = ((pb[1] - pa[1]) * diff) + (pa[1] < pb[1] ? pb[1] : pa[1]);
-	//ptr[2] = ((pb[2] - pa[2]) * diff) + (pa[2] < pb[2] ? pb[2] : pa[2]);
-	//ptr[3] = ((pb[3] - pa[3]) * diff) + (pa[3] < pb[3] ? pb[3] : pa[3]);
-/*	ft_putnbr(pb[0]);
-	ft_putchar('|');
-	ft_putnbr(pb[1]);
-	ft_putchar('|');
-	ft_putnbr(pb[2]);
-	ft_putchar('|');
-	ft_putnbr(pb[3]);
-	ft_putchar('-');
-	ft_putnbr(pa[0]);
-	ft_putchar('|');
-	ft_putnbr(pa[1]);
-	ft_putchar('|');
-	ft_putnbr(pa[2]);
-	ft_putchar('|');
-	ft_putnbr(pa[3]);
-	ft_putchar('*');
-	ft_putnbr(diff*100);
-	ft_putchar('=');
-	ft_putnbr(ptr[0]);
-	ft_putchar('|');
-	ft_putnbr(ptr[1]);
-	ft_putchar('|');
-	ft_putnbr(ptr[2]);
-	ft_putchar('|');
-	ft_putnbr(ptr[3]);
-	ft_putchar('\n');
-*/	return (res);
+	pa = (unsigned char *)&a.color;
+	pb = (unsigned char *)&b.color;
+	ptr[0] = (pa[0] < pb[0] ? pa[0] + (pb[0] - pa[0]) * diff :
+			  pb[0] + (pa[0] - pb[0]) * (1 - diff));
+	ptr[1] = (pa[3] < pb[1] ? pa[1] + (pb[1] - pa[1]) * diff :
+			  pb[1] + (pa[1] - pb[1]) * (1 - diff));
+	ptr[2] = (pa[2] < pb[2] ? pa[2] + (pb[2] - pa[2]) * diff :
+			  pb[2] + (pa[2] - pb[2]) * (1 - diff));
+	ptr[3] = (pa[1] < pb[3] ? pa[3] + (pb[3] - pa[3]) * diff :
+			  pb[3] + (pa[3] - pb[3]) * (1 - diff));
+	return (res);
 }
 
 void				segment(t_env env, t_dot a, t_dot b)
