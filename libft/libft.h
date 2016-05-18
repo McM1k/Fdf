@@ -6,7 +6,7 @@
 /*   By: gboudrie <gboudrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/24 21:50:40 by gboudrie          #+#    #+#             */
-/*   Updated: 2016/04/13 23:01:22 by gboudrie         ###   ########.fr       */
+/*   Updated: 2016/05/18 16:35:38 by gboudrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct		s_fd
 	struct s_fd		*next;
 }					t_fd;
 
+double				**ft_mat_id(int size);
 void				ft_tabdel(void ***tab);
 void				ft_swap(int *a, int *b);
 int					ft_abs(int nb);
