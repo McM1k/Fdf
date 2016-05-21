@@ -16,8 +16,9 @@ t_dot				convert(int x, int y, int z, t_env env)
 {
 	t_dot	dot;
 	double	tmp_z;
-
-	rotate(&env);
+// ROTATES AT EACH POINT !!!!!!
+//	rotate(&env);
+// ROTATES AT EACH POINT !!!!!!
 	x = x * env.zoom;
 	y = y * env.zoom;
 	z = z * env.zoom * env.height;
