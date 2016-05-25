@@ -6,7 +6,7 @@
 /*   By: gboudrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 18:54:15 by gboudrie          #+#    #+#             */
-/*   Updated: 2016/05/18 17:49:22 by gboudrie         ###   ########.fr       */
+/*   Updated: 2016/05/25 16:26:51 by gboudrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int		my_key_func(int keycode, void *param)
 	if (keycode == 125 || keycode == 126) //haut-bas
 		env->y_decal += (keycode == 125 ? 10 : -10);
 	if (keycode == 86 || keycode == 88) // X-axis
-		env->x_rot += (keycode == 88 ? 1 : -1);
+		env->y_rot += (keycode == 88 ? 1 : -1);
 	if (keycode == 91 || keycode == 87) // Y-axis
-		env->y_rot += (keycode == 91 ? 1 : -1);
+		env->x_rot += (keycode == 91 ? 1 : -1);
 	if (keycode == 89 || keycode == 92) // Z-axis
 		env->z_rot += (keycode == 92 ? 1 : -1);
 	if (keycode == 75 || keycode == 67) // height
@@ -39,6 +39,8 @@ int		my_key_func(int keycode, void *param)
 			env->zoom = 0.2;
 	}
 	ft_bzero(env->img, SIZE_X * SIZE_Y * 4);
+	if (keycode >= 86 && keycode <= 92 && keycode != 90)
+		rotate(env);
 	drawer(*env);
 	mlx_put_image_to_window(env->mlx, env->win, env->ig, 0, 0);
 	return (1);

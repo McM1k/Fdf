@@ -6,7 +6,7 @@
 /*   By: gboudrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 17:37:25 by gboudrie          #+#    #+#             */
-/*   Updated: 2016/05/18 19:23:46 by gboudrie         ###   ########.fr       */
+/*   Updated: 2016/05/25 15:16:00 by gboudrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ t_dot				convert(int x, int y, int z, t_env env)
 {
 	t_dot	dot;
 	double	tmp_z;
-// ROTATES AT EACH POINT !!!!!!
-//	rotate(&env);
-// ROTATES AT EACH POINT !!!!!!
+
 	x = x * env.zoom;
 	y = y * env.zoom;
 	z = z * env.zoom * env.height;
@@ -35,7 +33,7 @@ t_dot				convert(int x, int y, int z, t_env env)
 
 void				img_addr(t_env env, int x, int y, int color)
 {
-	if (!(x > env.siz - 1 || x < 0 || y < 0
+	if (!(x > env.siz - 1 || x <= 0 || y <= 0
 		  || x > SIZE_X - 1 || y > SIZE_Y - 1))
 		ft_memcpy(&env.img[(x - 1) * 4 + (y - 1) * env.siz], &color, 4);
 }
@@ -103,8 +101,8 @@ void				segment(t_env env, t_dot a, t_dot b)
 	t_dot	tmp;
 	double	div;
 
-	if ((a.x > SIZE_X && b.x > SIZE_X) || (a.x < 0 && b.x < 0) ||
-		(a.y > SIZE_Y && b.y > SIZE_Y) || (a.y < 0 && b.y < 0))
+	if ((a.x > SIZE_X && b.x > SIZE_X) || (a.x <= 0 && b.x <= 0) ||
+		(a.y > SIZE_Y && b.y > SIZE_Y) || (a.y <= 0 && b.y <= 0))
 		return ;
 	tmp.x = 0;
 	tmp.y = 0;
@@ -129,4 +127,3 @@ void				segment(t_env env, t_dot a, t_dot b)
 				img_addr(env, a.x + tmp.x, a.y + tmp.y, b.color);
 		}
 }
-
