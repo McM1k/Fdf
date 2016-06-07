@@ -6,7 +6,7 @@
 #    By: gboudrie <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/15 17:32:02 by gboudrie          #+#    #+#              #
-#    Updated: 2016/04/13 20:28:31 by gboudrie         ###   ########.fr        #
+#    Updated: 2016/06/07 15:31:35 by gboudrie         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 NAME = fdf
@@ -19,7 +19,7 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
-SOURCES = reader.c main.c drawer.c
+SOURCES = event.c segment.c reader.c main.c drawer.c rotation.c
 
 OBJS = $(SOURCES:.c=.o)
 
@@ -42,6 +42,7 @@ norm :
 
 meteo :
 				curl http://wttr.in/Paris
+				curl http://wttr.in/Moon
 
 clean :
 				-rm -f $(OBJS)

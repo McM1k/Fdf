@@ -6,7 +6,7 @@
 /*   By: gboudrie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 17:47:47 by gboudrie          #+#    #+#             */
-/*   Updated: 2016/05/08 18:35:55 by gboudrie         ###   ########.fr       */
+/*   Updated: 2016/06/07 22:40:29 by gboudrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct	s_env
 	int			x_rot;
 	int			y_rot;
 	int			z_rot;
+	double		height;
 }				t_env;
 
 typedef struct	s_dot
@@ -44,11 +45,13 @@ typedef struct	s_dot
 	int			color;
 }				t_dot;
 
-int				**reader(int const fd, int **tab);
+int				**reader(int fd, char *arg, int **tab);
 void			segment(t_env env, t_dot a, t_dot b);
 void			drawer(t_env env);
 t_dot			convert(int x, int y, int z, t_env env);
 void			img_addr(t_env env, int x, int y, int color);
-void			ft_quit();
+void			rotate(t_env *e);
+void			ft_quit(t_env *env, int param);
+void			events(int keycode, t_env *env);
 
 #endif
